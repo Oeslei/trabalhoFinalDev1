@@ -5,6 +5,7 @@
  */
 package view;
 
+import java.awt.List;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 
@@ -25,32 +26,16 @@ public class Tarefas extends javax.swing.JFrame {
         return btnAdicionarTarefa;
     }
 
-    public void setBtnAdicionarTarefa(JButton btnAdicionarTarefa) {
-        this.btnAdicionarTarefa = btnAdicionarTarefa;
-    }
-
     public JButton getBtnGerenciarListas() {
         return btnGerenciarListas;
-    }
-
-    public void setBtnGerenciarListas(JButton btnGerenciarListas) {
-        this.btnGerenciarListas = btnGerenciarListas;
     }
 
     public JButton getBtnSair() {
         return btnSair;
     }
 
-    public void setBtnSair(JButton btnSair) {
-        this.btnSair = btnSair;
-    }
-
-    public JScrollPane getPainelListas() {
-        return painelListas;
-    }
-
-    public void setPainelListas(JScrollPane painelListas) {
-        this.painelListas = painelListas;
+    public void setPainelListas(List listas) {
+        // TODO
     }
 
     /**

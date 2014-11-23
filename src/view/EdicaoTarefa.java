@@ -5,6 +5,7 @@
  */
 package view;
 
+import java.awt.List;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -28,48 +29,36 @@ public class EdicaoTarefa extends javax.swing.JFrame {
         return btnCancelar;
     }
 
-    public void setBtnCancelar(JButton btnCancelar) {
-        this.btnCancelar = btnCancelar;
-    }
-
     public JButton getBtnSalvar() {
         return btnSalvar;
     }
 
-    public void setBtnSalvar(JButton btnSalvar) {
-        this.btnSalvar = btnSalvar;
+    public String getDescricao() {
+        return descricao.getText();
     }
 
-    public JLabel getDescErro() {
-        return descErro;
+    /*public Lista getLista() {
+        // TODO
+    }*/
+
+    public String getNome() {
+        return nome.getText();
     }
 
-    public void setDescErro(JLabel descErro) {
-        this.descErro = descErro;
+    public void setDescErro(String descErro) {
+        this.descErro.setText("<html>" + descErro + "</html>");
     }
 
-    public JTextArea getDescricao() {
-        return descricao;
+    public void setDescricao(String descricao) {
+        this.descricao.setText(descricao);
     }
 
-    public void setDescricao(JTextArea descricao) {
-        this.descricao = descricao;
+    public void setLista(List lista) {
+        // TODO
     }
 
-    public JComboBox getLista() {
-        return lista;
-    }
-
-    public void setLista(JComboBox lista) {
-        this.lista = lista;
-    }
-
-    public JTextField getNome() {
-        return nome;
-    }
-
-    public void setNome(JTextField nome) {
-        this.nome = nome;
+    public void setNome(String nome) {
+        this.nome.setText(nome);
     }
 
     /**
