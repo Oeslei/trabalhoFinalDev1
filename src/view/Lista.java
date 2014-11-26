@@ -5,6 +5,8 @@
  */
 package view;
 
+import java.awt.List;
+
 /**
  *
  * @author First Place
@@ -17,6 +19,26 @@ public class Lista extends javax.swing.JPanel {
     public Lista() {
         initComponents();
     }
+    
+    public void setNome(String nome) {
+        this.nome.setText(nome);
+    }
+    
+//    public void setTarefas(List tarefas) {
+//        // TODO
+//    }
+    
+    public javax.swing.JButton getBtnAdicionarTarefa() {
+        return btnAdicionarTarefa;
+    }
+    
+//    public void setLista(Lista lista) {
+//        // TODO
+//    }
+    
+//    public void adicionarTarefa(Tarefa tarefa) {
+//        // TODO
+//    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -27,19 +49,81 @@ public class Lista extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        tarefas = new javax.swing.JPanel();
+        btnAdicionarTarefa = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        nome = new javax.swing.JLabel();
+
+        setBackground(new java.awt.Color(204, 204, 204));
+        setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+
+        tarefas.setBackground(new java.awt.Color(204, 204, 204));
+
+        javax.swing.GroupLayout tarefasLayout = new javax.swing.GroupLayout(tarefas);
+        tarefas.setLayout(tarefasLayout);
+        tarefasLayout.setHorizontalGroup(
+            tarefasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        tarefasLayout.setVerticalGroup(
+            tarefasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 47, Short.MAX_VALUE)
+        );
+
+        btnAdicionarTarefa.setText("Adicionar Tarefa");
+
+        jPanel1.setBackground(new java.awt.Color(102, 102, 102));
+        jPanel1.setForeground(new java.awt.Color(255, 255, 255));
+
+        nome.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        nome.setForeground(new java.awt.Color(255, 255, 255));
+        nome.setText("Sem nome");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(nome)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(nome)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(tarefas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnAdicionarTarefa)
+                .addContainerGap(107, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(tarefas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnAdicionarTarefa)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAdicionarTarefa;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel nome;
+    private javax.swing.JPanel tarefas;
     // End of variables declaration//GEN-END:variables
 }
