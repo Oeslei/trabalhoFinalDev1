@@ -5,6 +5,13 @@
  */
 package view;
 
+import java.awt.List;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+
 /**
  *
  * @author First Place
@@ -12,11 +19,43 @@ package view;
 public class EdicaoLista extends javax.swing.JFrame {
 
     /**
-     * Creates new form EdicaoLista
+     * Creates new form EdicaoTarefa
      */
     public EdicaoLista() {
         initComponents();
     }
+
+    public JButton getBtnCancelar() {
+        return btnCancelar;
+    }
+
+    public JButton getBtnSalvar() {
+        return btnSalvar;
+    }
+
+    public String getNome() {
+        return nome.getText();
+    }
+
+    public void setDescErro(String descErro) {
+        this.descErro.setText("<html>" + descErro + "</html>");
+    }
+
+    public void setNome(String nome) {
+        this.nome.setText(nome);
+    }
+    
+    public int getOrdem() {
+        return (int) selectOrdem.getSelectedItem();
+    }
+    
+    public void setOrdem(int ordem) {
+        selectOrdem.setSelectedItem(ordem);
+    }
+    
+//    public void setComboBoxOrdem(List valores) {
+//        // TODO
+//    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -27,17 +66,70 @@ public class EdicaoLista extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        nome = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        btnSalvar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
+        descErro = new javax.swing.JLabel();
+        selectOrdem = new javax.swing.JComboBox();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Adicionar Lista");
+
+        jLabel1.setLabelFor(nome);
+        jLabel1.setText("Nome da lista");
+
+        jLabel2.setLabelFor(selectOrdem);
+        jLabel2.setText("Ordem na exibição");
+
+        btnSalvar.setText("Salvar Lista");
+
+        btnCancelar.setText("Cancelar");
+
+        descErro.setForeground(new java.awt.Color(255, 51, 51));
+
+        selectOrdem.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnSalvar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnCancelar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(nome, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(descErro)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(selectOrdem, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(selectOrdem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addComponent(descErro)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSalvar)
+                    .addComponent(btnCancelar))
+                .addContainerGap())
         );
 
         pack();
@@ -69,6 +161,7 @@ public class EdicaoLista extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(EdicaoLista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -79,5 +172,12 @@ public class EdicaoLista extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnSalvar;
+    private javax.swing.JLabel descErro;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JTextField nome;
+    private javax.swing.JComboBox selectOrdem;
     // End of variables declaration//GEN-END:variables
 }
