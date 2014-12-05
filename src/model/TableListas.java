@@ -110,7 +110,7 @@ public class TableListas extends AbstractTableModel {
     }
     
     public Lista obter(int linha) {
-        return (Lista) listas.get((linha + 1));
+        return (Lista) listas.get(linha);
     }
     
 }

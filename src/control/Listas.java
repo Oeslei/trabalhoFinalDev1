@@ -6,8 +6,11 @@ package control;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import javax.swing.*;
+import javax.swing.event.MouseInputListener;
 import model.Lista;
 import model.ListaDAO;
 import model.TableListas;
@@ -18,13 +21,13 @@ import view.VisualizacaoLista;
  *
  * @author oeslei.250995
  */
-public class Listas implements ActionListener {
+public class Listas implements ActionListener, MouseListener {
     
     private view.Listas view = new view.Listas();
 
     private EdicaoLista incluirLista;
     private EdicaoLista editarLista;
-    private EdicaoLista viewLista;
+    private VisualizacaoLista viewLista;
     
     private ListaDAO daoLista = new ListaDAO();
     private TableListas tableModel;
@@ -42,6 +45,8 @@ public class Listas implements ActionListener {
         tableModel.setListas(daoLista.obterTodas());
         view.getTableListas().setModel(tableModel);
         view.getTableListas().getColumnModel().getColumn(0).setMaxWidth(180);
+        
+        view.getTableListas().addMouseListener(this);
     }
     
     public void show() {
@@ -56,7 +61,7 @@ public class Listas implements ActionListener {
         int ordem = daoLista.totalListas() + 1;
         incluirLista.setSelectOrdem(ordem);
         incluirLista.setOrdem(ordem);
-
+        
         viewIncluir.setTitle("Adicionar lista");
         viewIncluir.setVisible(true);
     }
@@ -102,6 +107,45 @@ public class Listas implements ActionListener {
             tableModel.setListas(daoLista.obterTodas());
             incluirLista.getJDialog().dispose();
         }
+    }
+    
+    private void visualizarLista(Lista lista) {
+        viewLista = new VisualizacaoLista(view);
+        JDialog view = viewLista.getJDialog();
+        // setActionsVisualizar();
+        
+        viewLista.setNome(lista.getNome());
+        viewLista.setId(lista.getId());
+        
+        view.setTitle("Lista");
+        view.setVisible(true);
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        if (view.getTableListas().getSelectedRowCount() == 1) {
+            visualizarLista(tableModel.obter(view.getTableListas().getSelectedRow()));
+        }
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        
     }
     
 }
