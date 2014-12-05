@@ -4,7 +4,10 @@
  */
 package view;
 
+import java.awt.Component;
 import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
 
 /**
  *

@@ -23,12 +23,13 @@ public class TableListas extends AbstractTableModel {
     }
     
     public TableListas(List listas) {
-        this();
+        super();
         this.setListas(listas);
     }
     
     public void setListas(List listas) {
-        listas.addAll(listas);
+        this.listas.addAll(listas);
+        fireTableDataChanged();
     }
     
     @Override

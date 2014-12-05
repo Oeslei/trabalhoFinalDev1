@@ -4,7 +4,9 @@
  */
 package view;
 
-import javax.swing.JButton;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.*;
 
 /**
  *
@@ -12,11 +14,21 @@ import javax.swing.JButton;
  */
 public class EdicaoLista extends javax.swing.JPanel {
 
+    private JDialog dialog;
+    
     /**
      * Creates new form EdicaoLista
      */
-    public EdicaoLista() {
+    public EdicaoLista(JFrame parent) {
         initComponents();
+        
+        dialog = new JDialog(parent, true);
+
+        dialog.add(this);
+        dialog.pack();
+
+        dialog.setLocationRelativeTo(parent);
+        dialog.setModal(true);
     }
     
     public JButton getBtnCancelar() {
@@ -45,6 +57,17 @@ public class EdicaoLista extends javax.swing.JPanel {
     
     public void setOrdem(int ordem) {
         selectOrdem.setSelectedItem(ordem);
+    }
+    
+    public void setSelectOrdem(int intervalo) {
+        selectOrdem.removeAllItems();
+        for (int i = 1; i <= intervalo; i++) {
+            selectOrdem.addItem(i);
+        }
+    }
+    
+    public JDialog getJDialog() {
+        return dialog;
     }
 
     /**

@@ -30,6 +30,8 @@ public class ListaDAO extends DAO {
             
             ResultSet rs = st.getGeneratedKeys();
             if (rs.next()) id = rs.getInt(1);
+            
+            atualizarOrdem(lista.getOrdem(), totalListas(), true, id);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -60,7 +62,7 @@ public class ListaDAO extends DAO {
         List listas = new ArrayList();
 
         try {
-            String sql = "SELECT * FROM listas";
+            String sql = "SELECT * FROM listas ORDER BY ordem";
             PreparedStatement st = (PreparedStatement) connection.prepareStatement(sql);
             st.execute();
             
@@ -73,6 +75,25 @@ public class ListaDAO extends DAO {
         }
 
         return listas;
+    }
+    
+    public int totalListas() {
+        int result = 0;
+
+        try {
+            String sql = "SELECT COUNT(id) as total FROM listas";
+            PreparedStatement st = (PreparedStatement) connection.prepareStatement(sql);
+            st.execute();
+            
+            ResultSet rs = st.getResultSet();
+            if (rs.next()) {
+                result = rs.getInt("total");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+
+        return result;
     }
     
     private Lista getListaFromResultSet(ResultSet rs) throws SQLException {
@@ -113,6 +134,24 @@ public class ListaDAO extends DAO {
     
     public void remover(Lista lista) {
         remover(lista.getId());
+    }
+    
+    public void atualizarOrdem(int de, int ate, boolean adicionar, int idImune) {
+        try {
+            String sql;
+            if (adicionar) {
+                sql = "UPDATE listas SET ordem = (ordem + 1) WHERE id <> ? AND ordem >= ? AND ordem <= ?";
+            } else {
+                sql = "UPDATE listas SET ordem = (ordem - 1) WHERE id <> ? AND ordem >= ? AND ordem <= ?";
+            }
+            PreparedStatement st = (PreparedStatement) connection.prepareStatement(sql);
+            st.setInt(1, idImune);
+            st.setInt(2, de);
+            st.setInt(3, ate);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
     }
     
 }
