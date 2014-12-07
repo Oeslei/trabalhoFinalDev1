@@ -76,19 +76,95 @@ public class Listas implements ActionListener, MouseListener {
         incluirLista.getBtnSalvar().addActionListener(this);
         incluirLista.getBtnCancelar().addActionListener(this);
     }
+    
+    private void setActionsVisualizar() {
+        viewLista.getBtnEditar().addActionListener(this);
+        viewLista.getBtnExcluir().addActionListener(this);
+    }
+    
+    private void setActionsEditar() {
+        editarLista.getBtnSalvar().addActionListener(this);
+        editarLista.getBtnCancelar().addActionListener(this);
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == view.getBtnAdicionarLista()) {
+        Object source = e.getSource();
+
+        if (source == view.getBtnAdicionarLista()) {
             adicionarLista();
-        } else if (e.getSource() == view.getBtnTarefas()) {
+        } else if (source == view.getBtnTarefas()) {
             
-        } else if (e.getSource() == view.getBtnSair()) {
+        } else if (source == view.getBtnSair()) {
             view.dispose();
-        } else if (e.getSource() == incluirLista.getBtnSalvar()) {
-            salvarNovaLista();
-        } else if (e.getSource() == incluirLista.getBtnCancelar()) {
-            incluirLista.getJDialog().dispose();
+        }
+        
+        if (incluirLista != null) {
+            if (source == incluirLista.getBtnSalvar()) {
+                salvarNovaLista();
+            } else if (source == incluirLista.getBtnCancelar()) {
+                incluirLista.getJDialog().dispose();
+            }
+        }
+        
+        if (viewLista != null) {
+            if (source == viewLista.getBtnEditar()) {
+                viewLista.getJDialog().dispose();
+                editarLista(viewLista.getId());
+            } else if (source == viewLista.getBtnExcluir()) {
+                excluirLista();
+            }
+        }
+        
+        if (editarLista != null) {
+            if (source == editarLista.getBtnSalvar()) {
+                salvarLista();
+            } else if (source == editarLista.getBtnCancelar()) {
+                editarLista.getJDialog().dispose();
+            }
+        }
+    }
+    
+    private void excluirLista() {
+        int confirm = JOptionPane.showConfirmDialog(view, "Deseja mesmo excluir esta lista?");
+        if (confirm == JOptionPane.OK_OPTION) {
+            daoLista.remover(viewLista.getId());
+            tableModel.limpar();
+            tableModel.setListas(daoLista.obterTodas());
+            viewLista.getJDialog().dispose();
+        }
+    }
+    
+    private void editarLista(int id) {
+        Lista lista = daoLista.obter(id);
+
+        editarLista = new EdicaoLista(view);
+        JDialog viewEditar = editarLista.getJDialog();
+        setActionsEditar();
+
+        editarLista.setSelectOrdem(daoLista.totalListas());
+        editarLista.setOrdem(lista.getOrdem());
+        editarLista.setNome(lista.getNome());
+        editarLista.setId(lista.getId());
+        
+        viewEditar.setTitle("Editar lista");
+        viewEditar.setVisible(true);
+    }
+    
+    private void salvarLista() {
+        Lista lista = new Lista();
+        lista.setId(editarLista.getId());
+        lista.setAtiva(true);
+        lista.setNome(editarLista.getNome());
+        lista.setOrdem(editarLista.getOrdem());
+        
+        if (lista.getNome().isEmpty()) {
+            editarLista.setDescErro("Preencha o campo nome!");
+        } else {
+            daoLista.atualizar(lista);
+            tableModel.limpar();
+            tableModel.setListas(daoLista.obterTodas());
+            editarLista.getJDialog().dispose();
         }
     }
     
@@ -112,7 +188,7 @@ public class Listas implements ActionListener, MouseListener {
     private void visualizarLista(Lista lista) {
         viewLista = new VisualizacaoLista(view);
         JDialog view = viewLista.getJDialog();
-        // setActionsVisualizar();
+        setActionsVisualizar();
         
         viewLista.setNome(lista.getNome());
         viewLista.setId(lista.getId());

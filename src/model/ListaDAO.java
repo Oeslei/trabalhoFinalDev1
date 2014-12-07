@@ -108,6 +108,8 @@ public class ListaDAO extends DAO {
     }
     
     public void atualizar(Lista lista) {
+        int ordemOrinigal = obter(lista.getId()).getOrdem();
+        
         try {
             String sql = "UPDATE listas SET ordem = ?, nome = ?, ativa = ? WHERE id = ?";
             PreparedStatement st = (PreparedStatement) connection.prepareStatement(sql);
@@ -116,17 +118,27 @@ public class ListaDAO extends DAO {
             st.setBoolean(3, lista.isAtiva());
             st.setInt(4, lista.getId());
             st.executeUpdate();
+            
+            if (lista.getOrdem() > ordemOrinigal) {
+                atualizarOrdem(ordemOrinigal, lista.getOrdem(), false, lista.getId());
+            } else {
+                atualizarOrdem(lista.getOrdem(), ordemOrinigal, true, lista.getId());
+            }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
     }
     
     public void remover(int id) {
+        int ordem = obter(id).getOrdem();
+
         try {
             String sql = "DELETE FROM listas WHERE id = ?";
             PreparedStatement st = (PreparedStatement) connection.prepareStatement(sql);
             st.setInt(1, id);
             st.executeUpdate();
+            
+            atualizarOrdem(ordem, (totalListas() + 1), false, -1);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }

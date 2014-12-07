@@ -16,6 +16,8 @@ public class EdicaoLista extends javax.swing.JPanel {
 
     private JDialog dialog;
     
+    private int id;
+    
     /**
      * Creates new form EdicaoLista
      */
@@ -68,6 +70,14 @@ public class EdicaoLista extends javax.swing.JPanel {
     
     public JDialog getJDialog() {
         return dialog;
+    }
+    
+    public void setId(int id) {
+        this.id = id;
+    }
+    
+    public int getId() {
+        return id;
     }
 
     /**
