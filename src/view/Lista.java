@@ -13,11 +13,21 @@ import java.awt.List;
  */
 public class Lista extends javax.swing.JPanel {
 
+    private int id;
+    
     /**
      * Creates new form Lista
      */
     public Lista() {
         initComponents();
+    }
+    
+    public void setId(int id) {
+        this.id = id;
+    }
+    
+    public int getId() {
+        return id;
     }
     
     public void setNome(String nome) {
@@ -32,13 +42,10 @@ public class Lista extends javax.swing.JPanel {
         return btnAdicionarTarefa;
     }
     
-//    public void setLista(Lista lista) {
-//        // TODO
-//    }
-    
-//    public void adicionarTarefa(Tarefa tarefa) {
-//        // TODO
-//    }
+    public void setLista(model.Lista lista) {
+        setNome(lista.getNome());
+        setId(lista.getId());
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.

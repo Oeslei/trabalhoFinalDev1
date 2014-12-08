@@ -30,7 +30,7 @@ public class Listas implements ActionListener, MouseListener {
     private VisualizacaoLista viewLista;
     
     private ListaDAO daoLista = new ListaDAO();
-    private TableListas tableModel;
+    private TableListas tableModel = new TableListas();
     
     public Listas() {
         view.setResizable(false);
@@ -38,9 +38,6 @@ public class Listas implements ActionListener, MouseListener {
         view.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
         setActions();
-        
-        tableModel = new TableListas();
-        daoLista = new ListaDAO();
         
         tableModel.setListas(daoLista.obterTodas());
         view.getTableListas().setModel(tableModel);
@@ -94,7 +91,10 @@ public class Listas implements ActionListener, MouseListener {
         if (source == view.getBtnAdicionarLista()) {
             adicionarLista();
         } else if (source == view.getBtnTarefas()) {
-            
+            view.hide();
+            Tarefas app = new Tarefas();
+            app.show();
+            view.dispose();
         } else if (source == view.getBtnSair()) {
             view.dispose();
         }

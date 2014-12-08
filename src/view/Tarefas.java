@@ -5,9 +5,12 @@
  */
 package view;
 
-import java.awt.List;
+import java.awt.FlowLayout;
+import java.util.List;
 import javax.swing.JButton;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import model.Lista;
 
 /**
  *
@@ -35,7 +38,17 @@ public class Tarefas extends javax.swing.JFrame {
     }
 
     public void setPainelListas(List listas) {
-        // TODO
+        Lista lista;
+        
+        painelListas.removeAll();
+        painelListas.setLayout(new FlowLayout(FlowLayout.LEFT));
+
+        for (int i = 0; i < listas.size(); i++) {
+            view.Lista panelLista = new view.Lista();
+            panelLista.setLista((Lista) listas.get(i));
+
+            painelListas.add(panelLista);
+        }
     }
 
     /**
@@ -51,7 +64,7 @@ public class Tarefas extends javax.swing.JFrame {
         btnGerenciarListas = new javax.swing.JButton();
         btnAdicionarTarefa = new javax.swing.JButton();
         btnSair = new javax.swing.JButton();
-        painelListas = new javax.swing.JScrollPane();
+        painelListas = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Controle de Tarefas - SimpleTasks");
@@ -82,19 +95,30 @@ public class Tarefas extends javax.swing.JFrame {
             .addComponent(btnAdicionarTarefa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        javax.swing.GroupLayout painelListasLayout = new javax.swing.GroupLayout(painelListas);
+        painelListas.setLayout(painelListasLayout);
+        painelListasLayout.setHorizontalGroup(
+            painelListasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1024, Short.MAX_VALUE)
+        );
+        painelListasLayout.setVerticalGroup(
+            painelListasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 716, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(painelListas)
+            .addComponent(painelListas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(painelListas, javax.swing.GroupLayout.DEFAULT_SIZE, 716, Short.MAX_VALUE))
+                .addComponent(painelListas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -140,6 +164,6 @@ public class Tarefas extends javax.swing.JFrame {
     private javax.swing.JButton btnGerenciarListas;
     private javax.swing.JButton btnSair;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane painelListas;
+    private javax.swing.JPanel painelListas;
     // End of variables declaration//GEN-END:variables
 }

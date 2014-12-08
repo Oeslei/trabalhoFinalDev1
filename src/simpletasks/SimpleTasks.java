@@ -5,7 +5,7 @@
  */
 package simpletasks;
 
-import control.Listas;
+import control.Tarefas;
 
 /**
  *
@@ -17,7 +17,7 @@ public class SimpleTasks {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Listas app = new Listas();
+        Tarefas app = new Tarefas();
         app.show();
     }
     
