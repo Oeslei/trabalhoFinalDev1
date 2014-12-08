@@ -4,8 +4,10 @@
  */
 package view;
 
-import java.awt.List;
+import java.util.List;
 import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
 
 /**
  *
@@ -13,11 +15,23 @@ import javax.swing.JButton;
  */
 public class EdicaoTarefa extends javax.swing.JPanel {
 
+    private JDialog dialog;
+    
+    private int id;
+    
     /**
      * Creates new form EdicaoTarefa
      */
-    public EdicaoTarefa() {
+    public EdicaoTarefa(JFrame parent) {
         initComponents();
+        
+        dialog = new JDialog(parent, true);
+
+        dialog.add(this);
+        dialog.pack();
+
+        dialog.setLocationRelativeTo(parent);
+        dialog.setModal(true);
     }
     
     public JButton getBtnCancelar() {
@@ -31,10 +45,22 @@ public class EdicaoTarefa extends javax.swing.JPanel {
     public String getDescricao() {
         return descricao.getText();
     }
+    
+    public JDialog getJDialog() {
+        return dialog;
+    }
+    
+    public void setId(int id) {
+        this.id = id;
+    }
+    
+    public int getId() {
+        return id;
+    }
 
-    /*public Lista getLista() {
-        // TODO
-    }*/
+    public model.Lista getLista() {
+        return ((model.Lista) lista.getSelectedItem());
+    }
 
     public String getNome() {
         return nome.getText();
@@ -48,8 +74,10 @@ public class EdicaoTarefa extends javax.swing.JPanel {
         this.descricao.setText(descricao);
     }
 
-    public void setLista(List lista) {
-        // TODO
+    public void setListas(List listas) {
+        for (int i = 0; i < listas.size(); i++) {
+            lista.addItem(listas.get(i));
+        }
     }
 
     public void setNome(String nome) {

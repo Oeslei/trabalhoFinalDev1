@@ -48,4 +48,8 @@ public class Lista {
         this.nome = nome;
     }
     
+    public String toString() {
+        return getNome();
+    }
+    
 }

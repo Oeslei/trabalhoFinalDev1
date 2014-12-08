@@ -57,4 +57,8 @@ public class Tarefa {
         this.ativa = ativa;
     }
     
+    public String toString() {
+        return getNome();
+    }
+    
 }
