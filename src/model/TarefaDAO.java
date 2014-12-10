@@ -76,6 +76,26 @@ public class TarefaDAO extends DAO {
         return tarefas;
     }
     
+    public List obterTodas(int idLista) {
+        List tarefas = new ArrayList();
+
+        try {
+            String sql = "SELECT * FROM tarefas WHERE idLista = ?";
+            PreparedStatement st = (PreparedStatement) connection.prepareStatement(sql);
+            st.setInt(1, idLista);
+            st.execute();
+            
+            ResultSet rs = st.getResultSet();
+            while (rs.next()) {
+                tarefas.add(getTarefaFromResultSet(rs));
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+
+        return tarefas;
+    }
+    
     private Tarefa getTarefaFromResultSet(ResultSet rs) throws SQLException {
         Tarefa tarefa = new Tarefa();
         ListaDAO daoLista = new ListaDAO();

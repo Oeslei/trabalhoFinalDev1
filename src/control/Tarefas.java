@@ -5,7 +5,6 @@
  */
 package control;
 
-import java.awt.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JDialog;
@@ -38,7 +37,7 @@ public class Tarefas implements ActionListener {
         
         setActions();
         
-        view.setPainelListas((java.util.List) daoLista.obterTodas());
+        view.setPainelListas((java.util.List) daoLista.obterTodas(), this);
     }
     
     public void show() {
@@ -91,8 +90,19 @@ public class Tarefas implements ActionListener {
         viewIncluir.setVisible(true);
     }
     
-    private void adicionarTarefa(int idLista) {
+    public void adicionarTarefa(int idLista) {
+        incluirTarefa = new EdicaoTarefa(view);
+        JDialog viewIncluir = incluirTarefa.getJDialog();
+        setActionsIncluir();
         
+        incluirTarefa.setListas(daoLista.obterTodas(), idLista);
+        
+        viewIncluir.setTitle("Adicionar tarefa");
+        viewIncluir.setVisible(true);
+    }
+    
+    public void exibirTarefa(int id) {
+        System.out.println(daoTarefa.obter(id).getNome());
     }
     
     private void salvarNovaTarefa() {
@@ -108,7 +118,7 @@ public class Tarefas implements ActionListener {
         } else {
             daoTarefa.adicionar(tarefa);
             incluirTarefa.getJDialog().dispose();
-            view.setPainelListas(daoLista.obterTodas());
+            view.setPainelListas(daoLista.obterTodas(), this);
         }
     }
     

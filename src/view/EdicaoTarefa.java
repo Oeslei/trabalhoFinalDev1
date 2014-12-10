@@ -79,7 +79,16 @@ public class EdicaoTarefa extends javax.swing.JPanel {
             lista.addItem(listas.get(i));
         }
     }
-
+    
+    public void setListas(List listas, int idListaSelecionada) {
+        for (int i = 0; i < listas.size(); i++) {
+            lista.addItem(listas.get(i));
+            if (((model.Lista) listas.get(i)).getId() == idListaSelecionada) {
+                lista.setSelectedItem(listas.get(i));
+            }
+        }
+    }
+    
     public void setNome(String nome) {
         this.nome.setText(nome);
     }

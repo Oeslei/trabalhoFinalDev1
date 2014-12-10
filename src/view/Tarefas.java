@@ -5,19 +5,18 @@
  */
 package view;
 
-import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.util.List;
 import javax.swing.JButton;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import model.Lista;
+import model.TarefaDAO;
 
 /**
  *
  * @author First Place
  */
 public class Tarefas extends javax.swing.JFrame {
-
+    
     /**
      * Creates new form Tarefas
      */
@@ -37,18 +36,24 @@ public class Tarefas extends javax.swing.JFrame {
         return btnSair;
     }
 
-    public void setPainelListas(List listas) {
+    public void setPainelListas(List listas, control.Tarefas control) {
         Lista lista;
+        TarefaDAO daoTarefa = new TarefaDAO();
         
         painelListas.removeAll();
-        painelListas.setLayout(new FlowLayout(FlowLayout.LEFT));
+        painelListas.setLayout(new GridLayout(0,4));
 
         for (int i = 0; i < listas.size(); i++) {
-            view.Lista panelLista = new view.Lista();
-            panelLista.setLista((Lista) listas.get(i));
+            view.Lista panelLista = new view.Lista(control);
+
+            lista = (Lista) listas.get(i);
+            panelLista.setLista(lista);
+            panelLista.setTarefas(daoTarefa.obterTodas(lista.getId()));
 
             painelListas.add(panelLista);
         }
+
+        painelListas.revalidate();
     }
 
     /**
