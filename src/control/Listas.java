@@ -8,9 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.ArrayList;
 import javax.swing.*;
-import javax.swing.event.MouseInputListener;
 import model.Lista;
 import model.ListaDAO;
 import model.TableListas;
@@ -126,7 +124,7 @@ public class Listas implements ActionListener, MouseListener {
     }
     
     private void excluirLista() {
-        int confirm = JOptionPane.showConfirmDialog(view, "Deseja mesmo excluir esta lista?");
+        int confirm = JOptionPane.showConfirmDialog(view, "Deseja mesmo excluir esta lista?\nTodas as tarefas relacionadas a esta listagem também serão removidas.");
         if (confirm == JOptionPane.OK_OPTION) {
             daoLista.remover(viewLista.getId());
             tableModel.limpar();

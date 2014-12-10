@@ -133,8 +133,13 @@ public class ListaDAO extends DAO {
         int ordem = obter(id).getOrdem();
 
         try {
-            String sql = "DELETE FROM listas WHERE id = ?";
+            String sql = "DELETE FROM tarefas WHERE idLista = ?";
             PreparedStatement st = (PreparedStatement) connection.prepareStatement(sql);
+            st.setInt(1, id);
+            st.executeUpdate();
+            
+            sql = "DELETE FROM listas WHERE id = ?";
+            st = (PreparedStatement) connection.prepareStatement(sql);
             st.setInt(1, id);
             st.executeUpdate();
             
