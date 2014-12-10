@@ -4,8 +4,10 @@
  */
 package view;
 
-import java.awt.List;
+import java.util.List;
 import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
 
 /**
  *
@@ -13,11 +15,23 @@ import javax.swing.JButton;
  */
 public class VisualizacaoTarefa extends javax.swing.JPanel {
 
+    private JDialog dialog;
+    
+    private int id;
+    
     /**
      * Creates new form VisualizacaoTarefa
      */
-    public VisualizacaoTarefa() {
-        initComponents();
+    public VisualizacaoTarefa(JFrame parent) {
+         initComponents();
+        
+        dialog = new JDialog(parent, true);
+
+        dialog.add(this);
+        dialog.pack();
+
+        dialog.setLocationRelativeTo(parent);
+        dialog.setModal(true);
     }
     
     public JButton getBtnEditar() {
@@ -31,25 +45,39 @@ public class VisualizacaoTarefa extends javax.swing.JPanel {
     public JButton getBtnMover() {
         return btnMover;
     }
-
-    /*public Lista getSelectedLista() {
-        // TODO
-    }*/
-
-    public void setDescricao(String descricao) {
-        this.descricao.setText("<html>" + descricao + "</html>");
+    
+    public JDialog getJDialog() {
+        return dialog;
+    }
+    
+    public void setId(int id) {
+        this.id = id;
+    }
+    
+    public int getId() {
+        return id;
     }
 
-    public void setLista(String lista) {
-        this.lista.setText(lista);
+    public void setDescricao(String descricao) {
+        this.descricao.setText("<html>" + descricao.replace("\n", "<br>") + "</html>");
+    }
+
+    public void setListas(List listas, int idListaSelecionada) {
+        for (int i = 0; i < listas.size(); i++) {
+            selectLista.addItem(listas.get(i));
+            if (((model.Lista) listas.get(i)).getId() == idListaSelecionada) {
+                selectLista.setSelectedItem(listas.get(i));
+                lista.setText(((model.Lista) listas.get(i)).getNome());
+            }
+        }
     }
 
     public void setNome(String nome) {
         this.nome.setText(nome);
     }
-
-    public void setSelectLista(List listas) {
-        // TODO
+    
+    public model.Lista getListaSelecionada() {
+        return (model.Lista) selectLista.getSelectedItem();
     }
 
     /**
@@ -96,50 +124,46 @@ public class VisualizacaoTarefa extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(selectLista, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(selectLista, 0, 314, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnMover, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(nome)
+                            .addComponent(jLabel5)
+                            .addComponent(descricao)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lista))
-                            .addComponent(jLabel5)
-                            .addComponent(descricao))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 240, Short.MAX_VALUE)
-                        .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(lista)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(nome)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(descricao)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(lista))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(nome)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(descricao)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(lista))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(selectLista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnMover))
-                        .addGap(0, 45, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnExcluir)
-                            .addComponent(btnEditar))))
+                    .addComponent(btnMover, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(selectLista, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnExcluir)
+                    .addComponent(btnEditar))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents

@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import model.ListaDAO;
 import model.Tarefa;
 import model.TarefaDAO;
@@ -54,6 +55,17 @@ public class Tarefas implements ActionListener {
         incluirTarefa.getBtnSalvar().addActionListener(this);
         incluirTarefa.getBtnCancelar().addActionListener(this);
     }
+    
+    private void setActionsVizualizar() {
+        viewTarefa.getBtnMover().addActionListener(this);
+        viewTarefa.getBtnEditar().addActionListener(this);
+        viewTarefa.getBtnExcluir().addActionListener(this);
+    }
+    
+    private void setActionsEditar() {
+        editarTarefa.getBtnSalvar().addActionListener(this);
+        editarTarefa.getBtnCancelar().addActionListener(this);
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -76,6 +88,74 @@ public class Tarefas implements ActionListener {
             } else if (source == incluirTarefa.getBtnCancelar()) {
                 incluirTarefa.getJDialog().dispose();
             }
+        }
+        
+        if (viewTarefa != null) {
+            if (source == viewTarefa.getBtnMover()) {
+                moverTarefa();
+            } else if (source == viewTarefa.getBtnEditar()) {
+                editarTarefa();
+            } else if (source == viewTarefa.getBtnExcluir()) {
+                excluirTarefa();
+            }
+        }
+        
+        if (editarTarefa != null) {
+            if (source == editarTarefa.getBtnSalvar()) {
+                salvarTarefa();
+            } else if (source == editarTarefa.getBtnCancelar()) {
+                editarTarefa.getJDialog().dispose();
+            }
+        }
+    }
+    
+    private void salvarTarefa() {
+        Tarefa tarefa = new Tarefa();
+        tarefa.setId(editarTarefa.getId());
+        tarefa.setNome(editarTarefa.getNome());
+        tarefa.setDescricao(editarTarefa.getDescricao());
+        tarefa.setLista(editarTarefa.getLista());
+        
+        if (tarefa.getNome().isEmpty()) {
+            editarTarefa.setDescErro("Preencha o campo nome!");
+        } else {
+            daoTarefa.atualizar(tarefa);
+            view.setPainelListas(daoLista.obterTodas(), this);
+            editarTarefa.getJDialog().dispose();
+        }
+    }
+    
+    private void moverTarefa() {
+        Tarefa tarefa = daoTarefa.obter(viewTarefa.getId());
+        tarefa.setLista(viewTarefa.getListaSelecionada());
+        daoTarefa.atualizar(tarefa);
+        view.setPainelListas(daoLista.obterTodas(), this);
+        viewTarefa.getJDialog().dispose();
+    }
+    
+    public void editarTarefa() {
+        editarTarefa = new EdicaoTarefa(view);
+        JDialog viewEditar = editarTarefa.getJDialog();
+        setActionsEditar();
+        
+        Tarefa tarefa = daoTarefa.obter(viewTarefa.getId());
+        editarTarefa.setId(tarefa.getId());
+        editarTarefa.setNome(tarefa.getNome());
+        editarTarefa.setDescricao(tarefa.getDescricao());
+        editarTarefa.setListas(daoLista.obterTodas(), tarefa.getLista().getId());
+        
+        viewTarefa.getJDialog().dispose();
+        
+        viewEditar.setTitle("Editar tarefa");
+        viewEditar.setVisible(true);
+    }
+    
+    private void excluirTarefa() {
+        int confirm = JOptionPane.showConfirmDialog(view, "Deseja mesmo excluir esta tarefa?");
+        if (confirm == JOptionPane.OK_OPTION) {
+            daoTarefa.remover(viewTarefa.getId());
+            view.setPainelListas(daoLista.obterTodas(), this);
+            viewTarefa.getJDialog().dispose();
         }
     }
     
@@ -102,7 +182,18 @@ public class Tarefas implements ActionListener {
     }
     
     public void exibirTarefa(int id) {
-        System.out.println(daoTarefa.obter(id).getNome());
+        viewTarefa = new VisualizacaoTarefa(view);
+        JDialog viewVisualizacao = viewTarefa.getJDialog();
+        setActionsVizualizar();
+        
+        Tarefa tarefa = daoTarefa.obter(id);
+        viewTarefa.setId(tarefa.getId());
+        viewTarefa.setNome(tarefa.getNome());
+        viewTarefa.setDescricao(tarefa.getDescricao());
+        viewTarefa.setListas(daoLista.obterTodas(), tarefa.getLista().getId());
+        
+        viewVisualizacao.setTitle("Tarefa");
+        viewVisualizacao.setVisible(true);
     }
     
     private void salvarNovaTarefa() {

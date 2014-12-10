@@ -41,7 +41,7 @@ public class Tarefas extends javax.swing.JFrame {
         TarefaDAO daoTarefa = new TarefaDAO();
         
         painelListas.removeAll();
-        painelListas.setLayout(new GridLayout(0,4));
+        painelListas.setLayout(new GridLayout(0,3));
 
         for (int i = 0; i < listas.size(); i++) {
             view.Lista panelLista = new view.Lista(control);
@@ -69,6 +69,7 @@ public class Tarefas extends javax.swing.JFrame {
         btnGerenciarListas = new javax.swing.JButton();
         btnAdicionarTarefa = new javax.swing.JButton();
         btnSair = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
         painelListas = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -108,22 +109,24 @@ public class Tarefas extends javax.swing.JFrame {
         );
         painelListasLayout.setVerticalGroup(
             painelListasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 716, Short.MAX_VALUE)
+            .addGap(0, 697, Short.MAX_VALUE)
         );
+
+        jScrollPane1.setViewportView(painelListas);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(painelListas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(painelListas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 716, Short.MAX_VALUE))
         );
 
         pack();
@@ -169,6 +172,7 @@ public class Tarefas extends javax.swing.JFrame {
     private javax.swing.JButton btnGerenciarListas;
     private javax.swing.JButton btnSair;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel painelListas;
     // End of variables declaration//GEN-END:variables
 }
